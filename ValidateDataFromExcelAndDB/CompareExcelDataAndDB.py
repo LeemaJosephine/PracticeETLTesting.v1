@@ -1,8 +1,6 @@
 import pandas as pd
-import pymysql
-import pytest
 
-from Test.conftest import db_connection
+from conftest import db_connection
 
 
 def test_data_validation(db_connection):
