@@ -1,3 +1,4 @@
+pymysql
 selenium~=4.44.0
 pytest==9.0.3
 pytest-html
