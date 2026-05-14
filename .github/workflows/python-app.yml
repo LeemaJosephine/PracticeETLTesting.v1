@@ -6,7 +6,7 @@ on:
       - master
 
   schedule:
-    - cron: 15 11 * * *
+    - cron: 0 6 * * *
     
 jobs:
   test:
