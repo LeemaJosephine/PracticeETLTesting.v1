@@ -1,37 +1,40 @@
 import pandas as pd
+import pymysql
 
-from conftest import db_connection
 
 
-def test_data_validation(db_connection):
-    # Read data from Excel
-    excel_data=pd.read_excel("C:\\Users\\leema\\PycharmProjects\\PracticeETLTesting\\Data\\Test_Data.xlsx")
+# Read data from Excel
+excel_data=pd.read_excel("C:\\Users\\leema\\PycharmProjects\\PracticeETLTesting\\Data\\Test_Data.xlsx")
 
-    # Reda data from DB
+connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='root',
+                                 db='employee_db')
+# Reda data from DB
 
-    cursor = db_connection.cursor()
+cursor = connection.cursor()
 
-    # Read and fetch data
+# Read and fetch data
 
-    query ="Select * from salary_info"
-    cursor.execute(query)
-    data_db = cursor.fetchall()
+query ="Select * from salary_info"
+cursor.execute(query)
+data_db = cursor.fetchall()
 
-    # Convert DB data to DataFormat
+# Convert DB data to DataFormat
 
-    db_df = pd.DataFrame(
-        data_db,
-        columns=["emp_id", "emp_name", "salary"]
-    )
+db_df = pd.DataFrame(
+    data_db,
+    columns=["emp_id", "emp_name", "salary"]
+)
 
-    print(db_df)
-    print(excel_data)
+print(db_df)
+print(excel_data)
 
-    # Standardize columns
-    excel_data.columns = excel_data.columns.str.lower().str.strip()
-    db_df.columns = db_df.columns.str.lower().str.strip()
+# Standardize columns
+excel_data.columns = excel_data.columns.str.lower().str.strip()
+db_df.columns = db_df.columns.str.lower().str.strip()
 
-    # Compare
-    assert excel_data.equals(db_df), "Excel and DB data are NOT matching"
+# Compare
+assert excel_data.equals(db_df), "Excel and DB data are NOT matching"
 
-    print("Data Validation Successful")
+print("Data Validation Successful")

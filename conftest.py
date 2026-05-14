@@ -10,6 +10,9 @@ def driver():
     driver.implicitly_wait(20)
 
     yield driver
+
+
+
     #driver.quit()
 
 
