@@ -1,11 +1,15 @@
 import pytest
 import pymysql
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")
+
+    driver = webdriver.Chrome(options=options)
     driver.get("https://www.demoblaze.com/")
     driver.implicitly_wait(20)
 
